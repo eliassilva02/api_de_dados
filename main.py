@@ -1,7 +1,7 @@
 from flask import Flask, jsonify
 from flask_pydantic_spec import FlaskPydanticSpec, Response
 from flask_cors import CORS
-from ETL import Application, JsonDefault
+from Utils.dados import Application, JsonDefault
 
 app = Flask(__name__)
 app.json.sort_keys = False

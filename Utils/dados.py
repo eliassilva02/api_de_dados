@@ -1,5 +1,5 @@
 import sqlite3
-from ObjectAPI import JsonDefault, JsonLinhas, JsonBarras
+from Models.BaseModel import JsonDefault, JsonLinhas, JsonBarras
 from locale import setlocale, format_string, LC_ALL
 
 
@@ -25,7 +25,7 @@ class Number:
 
 class Application:
     def SqlQuery(query):
-        conn = sqlite3.connect("petrobras.db")
+        conn = sqlite3.connect("BaseDados\\petrobras.db")
 
         # Criar um cursor para executar comandos SQL
         cursor = conn.cursor()
