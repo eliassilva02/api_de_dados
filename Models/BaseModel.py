@@ -11,8 +11,14 @@ class JsonBarras(BaseModel):
     empresa: list[str]
 
 
+class FaturamentoPorDia(BaseModel):
+    faturamento: list[str]
+    dia: list[str]
+
+
 class JsonDefault(BaseModel):
     Faturamento: str
+    LinhasFaturamento: FaturamentoPorDia
     Lucro: str
     QtdeEmpresas: str
     Uf: str

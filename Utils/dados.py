@@ -1,5 +1,5 @@
 import sqlite3
-from Models.BaseModel import JsonDefault, JsonLinhas, JsonBarras
+from Models.BaseModel import JsonDefault, FaturamentoPorDia, JsonBarras, JsonLinhas
 from locale import setlocale, format_string, LC_ALL
 
 
@@ -46,6 +46,27 @@ class Application:
         faturamento = resultados[0][0]
 
         return Number.FormatNumber(faturamento)
+
+    def FaturamentoPorDia():
+        faturamento = []
+        dia = []
+
+        consulta = f"""SELECT SUM(venda), 
+                        strftime('%d', data, 'unixepoch')
+                        FROM tabela_produtos
+                        GROUP BY 2
+                        ORDER BY 2;"""
+
+        resultados = Application.SqlQuery(consulta)
+
+        for resultado in resultados:
+            # Formatando valores
+            valor = Number.FormatNumber(resultado[0])
+            faturamento.append(valor)
+
+            dia.append(resultado[1])
+
+        return faturamento, dia
 
     def Lucro():
         consulta = f"SELECT SUM(venda - compra) FROM tabela_produtos"
@@ -128,9 +149,14 @@ class Application:
     def ConstruindoJson():
         lucroDiario = Application.LucroPorDia()
         lucroRazaoSocial = Application.LucroPorRazaoSocial()
+        faturamentoDiario = Application.FaturamentoPorDia()
 
         json = JsonDefault(
             Faturamento=Application.Faturamento(),
+            LinhasFaturamento=FaturamentoPorDia(
+                faturamento=faturamentoDiario[0],
+                dia=faturamentoDiario[1]
+            ),
             Lucro=Application.Lucro(),
             QtdeEmpresas=Application.QuantidadePostos(),
             Uf=Application.UFMaisCara(),
