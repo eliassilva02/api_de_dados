@@ -8,6 +8,7 @@ Esta API fornece indicadores e dados para gráficos de uma planilha de Combustí
 - Quantidade de Postos
 - Estado que mais lucra com a venda de Combustíveis
 - Lucro divido sob os dias de janeiro
+- Faturamento divido sob os dias de janeiro
 - 5 postos que mais lucram com a venda de Combustíveis
 
 ## Libs usadas
